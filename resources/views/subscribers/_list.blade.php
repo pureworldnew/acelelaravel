@@ -18,11 +18,11 @@
 				</td>
 				<td>
 					<div class="d-flex">
-						<div class="subscriber-avatar">
+						{{-- <div class="subscriber-avatar">
 							<a href="{{ action('SubscriberController@edit', ['list_uid' => $list->uid ,'uid' => $item->uid]) }}">
 								<img src="{{ (isSiteDemo() ? 'https://i.pravatar.cc/300?v=' . $key : action('SubscriberController@avatar',  $item->uid)) }}" />
 							</a>
-						</div>
+						</div> --}}
 						<div class="no-margin text-bold">
 							<a class="kq_search" href="{{ action('SubscriberController@edit', ['list_uid' => $list->uid ,'uid' => $item->uid]) }}">
 								{{ $item->email }}
