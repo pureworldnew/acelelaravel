@@ -147,7 +147,7 @@ class SendingServer extends Model
      */
     public static function mapServerType($server)
     {
-        $class_name = '\Acelle\Model\\'.self::$serverMapping[$server->type];
+        $class_name = '\Acelle\Model\\' . self::$serverMapping[$server->type];
 
         if ($server->id) {
             $instance = $class_name::find($server->id);
@@ -167,7 +167,7 @@ class SendingServer extends Model
      */
     public static function getInstance($server)
     {
-        $class_name = '\Acelle\Model\\'.self::$serverMapping[$server->type];
+        $class_name = '\Acelle\Model\\' . self::$serverMapping[$server->type];
         $attributes = $server->toArray();
         if (array_key_exists('id', $attributes)) {
             unset($attributes['id']);
@@ -241,9 +241,9 @@ class SendingServer extends Model
         if (!empty(trim($request->keyword))) {
             foreach (explode(' ', trim($request->keyword)) as $keyword) {
                 $query = $query->where(function ($q) use ($keyword) {
-                    $q->orwhere('sending_servers.name', 'like', '%'.$keyword.'%')
-                        ->orWhere('sending_servers.type', 'like', '%'.$keyword.'%')
-                        ->orWhere('sending_servers.host', 'like', '%'.$keyword.'%');
+                    $q->orwhere('sending_servers.name', 'like', '%' . $keyword . '%')
+                        ->orWhere('sending_servers.type', 'like', '%' . $keyword . '%')
+                        ->orWhere('sending_servers.host', 'like', '%' . $keyword . '%');
                 });
             }
         }
@@ -460,8 +460,8 @@ class SendingServer extends Model
             self::TYPE_SMTP => [
                 'cols' => [
                     'host' => 'required',
-                    'smtp_username' => 'required',
-                    'smtp_password' => 'required',
+                    'smtp_username' => '',
+                    'smtp_password' => '',
                     'smtp_port' => 'required',
                     'smtp_protocol' => '',
                 ],
@@ -769,7 +769,7 @@ class SendingServer extends Model
             return trans('messages.unlimited');
         }
 
-        return $this->quota_value.'/'.$this->quota_base.' '.trans('messages.'.\Acelle\Library\Tool::getPluralPrase($this->quota_unit, $this->quota_base));
+        return $this->quota_value . '/' . $this->quota_base . ' ' . trans('messages.' . \Acelle\Library\Tool::getPluralPrase($this->quota_unit, $this->quota_base));
     }
 
     /**
@@ -783,7 +783,7 @@ class SendingServer extends Model
             return trans('messages.unlimited');
         }
 
-        return '<b>'.$this->quota_value.'</b>/<b>'.$this->quota_base.' '.trans('messages.'.\Acelle\Library\Tool::getPluralPrase($this->quota_unit, $this->quota_base)).'</b>';
+        return '<b>' . $this->quota_value . '</b>/<b>' . $this->quota_base . ' ' . trans('messages.' . \Acelle\Library\Tool::getPluralPrase($this->quota_unit, $this->quota_base)) . '</b>';
     }
 
     /**
@@ -1058,7 +1058,7 @@ class SendingServer extends Model
         if (isset($request->q)) {
             $keyword = $request->q;
             $query = $query->where(function ($q) use ($keyword) {
-                $q->orwhere('sending_servers.name', 'like', '%'.$keyword.'%');
+                $q->orwhere('sending_servers.name', 'like', '%' . $keyword . '%');
             });
         }
 
@@ -1072,11 +1072,11 @@ class SendingServer extends Model
             if ($request->plan_uid && in_array($server->id, $existIds)) {
                 $data['items'][] = [
                     'id' => $server->uid,
-                    'text' => $server->name.' ('.trans('messages.sending_server.added').')'.'|||'.trans('messages.'.$server->type),
+                    'text' => $server->name . ' (' . trans('messages.sending_server.added') . ')' . '|||' . trans('messages.' . $server->type),
                     'disabled' => true,
                 ];
             } else {
-                $data['items'][] = ['id' => $server->uid, 'text' => $server->name.'|||'.trans('messages.'.$server->type)];
+                $data['items'][] = ['id' => $server->uid, 'text' => $server->name . '|||' . trans('messages.' . $server->type)];
             }
         }
 
@@ -1096,7 +1096,7 @@ class SendingServer extends Model
         if (isset($request->q)) {
             $keyword = $request->q;
             $query = $query->where(function ($q) use ($keyword) {
-                $q->orwhere('sending_servers.name', 'like', '%'.$keyword.'%');
+                $q->orwhere('sending_servers.name', 'like', '%' . $keyword . '%');
             });
         }
 
@@ -1110,11 +1110,11 @@ class SendingServer extends Model
             if ($request->plan_uid && in_array($server->id, $existIds)) {
                 $data['items'][] = [
                     'id' => $server->uid,
-                    'text' => $server->name.' ('.trans('messages.sending_server.added').')'.'|||'.trans('messages.'.$server->type),
+                    'text' => $server->name . ' (' . trans('messages.sending_server.added') . ')' . '|||' . trans('messages.' . $server->type),
                     'disabled' => true,
                 ];
             } else {
-                $data['items'][] = ['id' => $server->uid, 'text' => $server->name.'|||'.trans('messages.'.$server->type)];
+                $data['items'][] = ['id' => $server->uid, 'text' => $server->name . '|||' . trans('messages.' . $server->type)];
             }
         }
 
@@ -1246,14 +1246,12 @@ class SendingServer extends Model
         if (!$value) {
             // default verification email
             if ($name == 'custom_verification_email') {
-                $value = trans('messages.sending_server.default_email_verification.content');
-                ;
+                $value = trans('messages.sending_server.default_email_verification.content');;
             }
-            
+
             // default verification email
             if ($name == 'custom_verification_email_subject') {
-                $value = trans('messages.sending_server.default_email_verification.subject');
-                ;
+                $value = trans('messages.sending_server.default_email_verification.subject');;
             }
         }
 
@@ -1347,7 +1345,7 @@ class SendingServer extends Model
     public function addIdentity($domain)
     {
         $identityStore = $this->getIdentityStore();
-        $identityStore->add([ $domain => ['VerificationStatus' => true ]]);
+        $identityStore->add([$domain => ['VerificationStatus' => true]]);
         $this->setOption('identities', $identityStore->get());
         $this->save();
     }
@@ -1396,7 +1394,7 @@ class SendingServer extends Model
      */
     public function isIdentityEnabled($type, $value)
     {
-        $values = $this->getOption($type.'s');
+        $values = $this->getOption($type . 's');
 
         return in_array($values, $value);
     }
@@ -1512,26 +1510,26 @@ class SendingServer extends Model
                 $email = extract_email($item);
                 if (strpos(strtolower($email), $keyword) === 0) {
                     $topList[] = [
-                            'text' => extract_name($item),
-                            'value' => $email,
-                            'desc' => str_replace($keyword, '<span class="text-semibold text-primary"><strong>'.$keyword.'</strong></span>', $email),
-                        ];
+                        'text' => extract_name($item),
+                        'value' => $email,
+                        'desc' => str_replace($keyword, '<span class="text-semibold text-primary"><strong>' . $keyword . '</strong></span>', $email),
+                    ];
                 } else {
                     $bottomList[] = [
-                            'text' => extract_name($item),
-                            'value' => $email,
-                            'desc' => $email,
-                        ];
+                        'text' => extract_name($item),
+                        'value' => $email,
+                        'desc' => $email,
+                    ];
                 }
             } else { // domains are alse
                 $dKey = explode('@', $keyword);
                 $dKey = isset($dKey[1]) ? $dKey[1] : null;
                 // if ( (!isset($dKey) || $dKey == '') || ($dKey && strpos(strtolower($item), $dKey) === 0 )) {
                 $topList[] = [
-                            'text' => '****@'.str_replace($dKey, '<span class="text-semibold text-primary"><strong>'.$dKey.'</strong></span>', $item),
-                            'subfix' => $item,
-                            'desc' => null,
-                        ];
+                    'text' => '****@' . str_replace($dKey, '<span class="text-semibold text-primary"><strong>' . $dKey . '</strong></span>', $item),
+                    'subfix' => $item,
+                    'desc' => null,
+                ];
                 // }
             }
         }
@@ -1554,7 +1552,7 @@ class SendingServer extends Model
 
         $errorTitle = "Server `{$this->name}` ({$this->uid}) failed to send";
         BackendErrorNotification::cleanupDuplicateNotifications($errorTitle);
-        BackendErrorNotification::warning(['title' => $errorTitle, 'message' => date('Y-m-d').' '.$errorTitle.': '.$exception->getMessage()], false);
+        BackendErrorNotification::warning(['title' => $errorTitle, 'message' => date('Y-m-d') . ' ' . $errorTitle . ': ' . $exception->getMessage()], false);
     }
 
     /**
@@ -1597,7 +1595,7 @@ class SendingServer extends Model
         return array_keys($filtered);
     }
 
-    public function getIdentityStore() : IdentityStore
+    public function getIdentityStore(): IdentityStore
     {
         $options = $this->getOptions();
         $identityStore = new IdentityStore(array_key_exists('identities', $options) ? $options['identities'] : []);
@@ -1624,7 +1622,7 @@ class SendingServer extends Model
     public function sendWithDefaultFromAddress($message, $params = [])
     {
         if (empty($this->from_name)) {
-            $message->setFrom([ $this->from_name => $this->from_address ]);
+            $message->setFrom([$this->from_name => $this->from_address]);
         } else {
             $message->setFrom($this->from_address);
         }
@@ -1640,7 +1638,7 @@ class SendingServer extends Model
 
         $identityStore = $this->getIdentityStore();
         $names = array_keys($identityStore->get(['VerificationStatus' => 'Success']));
-        
+
         $emails = array_values(array_filter($names, function ($name) {
             return checkEmail($name);
         }));
@@ -1651,7 +1649,7 @@ class SendingServer extends Model
         $default = null;
 
         if (!empty($domains)) {
-            $default = 'noreply@'.$domains[0];
+            $default = 'noreply@' . $domains[0];
         } elseif (!empty($emails)) {
             $default = $emails[0];
         }
