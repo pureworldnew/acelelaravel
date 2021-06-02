@@ -25,9 +25,9 @@
                     <input type="hidden" name="_method" value="PATCH">
                     <input type="hidden" name="list_uid" value="{{ $list->uid }}" />
                     
-                    <div class="d-flex align-items-top">
+                    <div class="d-flex align-items-center">
                         <div>
-                            @include('helpers._upload',['src' => (isSiteDemo() ? 'https://i.pravatar.cc/300' : action('SubscriberController@avatar',  $subscriber->uid)), 'dragId' => 'upload-avatar', 'preview' => 'image'])
+                            {{-- @include('helpers._upload',['src' => (isSiteDemo() ? 'https://i.pravatar.cc/300' : action('SubscriberController@avatar',  $subscriber->uid)), 'dragId' => 'upload-avatar', 'preview' => 'image']) --}}
                             
                             <div class="tags" style="clear:both">
                                 @if ($subscriber->getTags())
@@ -53,7 +53,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="mt-20">
+                        <div class="ml-20">
                             <div class="dropdown">
                             <button class="btn btn-default bg-grey dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                 {{ trans('messages.subscribers.profile.action') }}
