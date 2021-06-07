@@ -2763,7 +2763,7 @@
   'campaign.template.from_theme.intro' => 'No need to create an email from scratch. Start from a beautiful template we have',
   'campaign.template.start' => 'Start',
   'campaign.template.upload' => 'Upload a new template',
-  'campaign.template.upload.intro' => 'Upload your own template in ZIP format',
+  'campaign.template.upload.intro' => 'Upload your own template in HTML format',
   'campaign.choose_your_template_layout' => 'Choose layout for campaign template',
   'campaign.choose_template.intro' => 'Select campaign template depend on your purpose.
         You can create template from scratch or select from exist templates.',
@@ -4093,3 +4093,4 @@
   'payment.choose_new_payment_method_to_proceed' => 'Please choose a new payment method below to 
       proceed with the payment',
 ) ?>
+
