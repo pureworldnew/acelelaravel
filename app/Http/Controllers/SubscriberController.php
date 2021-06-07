@@ -127,6 +127,8 @@ class SubscriberController extends Controller
 
             // Save subscriber
             $subscriber->email = $request->EMAIL;
+            $subscriber->md5 = md5($request->EMAIL);
+            $subscriber->SHA256 = hash('sha256', $request->EMAIL);
             $subscriber->save();
             // Update field
             $subscriber->updateFields($request->all());
@@ -591,7 +593,7 @@ class SubscriberController extends Controller
 
         $system_job = $list->getLastExportJob();
 
-        return response()->download(storage_path('job/'.$system_job->id.'/data.csv'));
+        return response()->download(storage_path('job/' . $system_job->id . '/data.csv'));
     }
 
     /**
@@ -825,7 +827,7 @@ class SubscriberController extends Controller
     {
         $list = MailList::findByUid($list_uid);
         $subscriber = Subscriber::findByUid($uid);
-        
+
         // authorize
         if (\Gate::denies('update', $subscriber)) {
             return $this->notAuthorized();
@@ -860,7 +862,7 @@ class SubscriberController extends Controller
     {
         $list = MailList::findByUid($list_uid);
         $subscriber = Subscriber::findByUid($uid);
-        
+
         // authorize
         if (\Gate::denies('delete', $subscriber)) {
             return $this->notAuthorized();
@@ -892,7 +894,7 @@ class SubscriberController extends Controller
         if ($request->isMethod('post')) {
             // make validator
             $validator = \Validator::make($request->all(), ['emails' => 'required']);
-            
+
             // redirect if fails
             if ($validator->fails()) {
                 return response()->view('subscribers.bulkDelete', [
@@ -934,7 +936,7 @@ class SubscriberController extends Controller
         if ($request->isMethod('post')) {
             // make validator
             $validator = \Validator::make($request->all(), ['emails' => 'required']);
-            
+
             // redirect if fails
             if ($validator->fails()) {
                 return response()->view('subscribers.bulkDelete', [
@@ -979,7 +981,7 @@ class SubscriberController extends Controller
         // validate and save posted data
         if ($request->isMethod('post')) {
             $validator = \Acelle\Model\Subscriber::assginValues($subscribers, $request);
-            
+
             // redirect if fails
             if ($validator->fails()) {
                 return response()->view('subscribers.assignValues', [
@@ -988,7 +990,7 @@ class SubscriberController extends Controller
                     'errors' => $validator->errors(),
                 ], 400);
             }
-            
+
             return response()->json([
                 'status' => 'success',
                 'message' => trans('messages.subscribers.values_assigned'),
