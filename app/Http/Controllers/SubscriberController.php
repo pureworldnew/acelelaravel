@@ -852,6 +852,42 @@ class SubscriberController extends Controller
     }
 
     /**
+     * Update Source tags.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+    public function updateSourceTags(Request $request, $list_uid, $uid)
+    {
+        $list = MailList::findByUid($list_uid);
+        $subscriber = Subscriber::findByUid($uid);
+
+        // authorize
+        if (\Gate::denies('update', $subscriber)) {
+            return $this->notAuthorized();
+        }
+
+        // saving
+        if ($request->isMethod('post')) {
+            $subscriber->updateSourceTags($request->source_tag);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => trans('messages.subscriber.tagged', [
+                    'subscriber' => $subscriber->getFullName(),
+                ]),
+            ], 201);
+        }
+
+        return view('subscribers.updateSourceTags', [
+            'list' => $list,
+            'subscriber' => $subscriber,
+        ]);
+    }
+
+    /**
      * Automation remove contact tag.
      *
      * @param \Illuminate\Http\Request $request
@@ -869,6 +905,33 @@ class SubscriberController extends Controller
         }
 
         $subscriber->removeTag($request->tag);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => trans('messages.automation.contact.tag.removed', [
+                'tag' => $request->tag,
+            ]),
+        ], 201);
+    }
+
+    /**
+     * Automation remove contact source tag.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function removeSourceTag(Request $request, $list_uid, $uid)
+    {
+        $list = MailList::findByUid($list_uid);
+        $subscriber = Subscriber::findByUid($uid);
+
+        // authorize
+        if (\Gate::denies('delete', $subscriber)) {
+            return $this->notAuthorized();
+        }
+
+        $subscriber->removeSourceTag($request->tag);
 
         return response()->json([
             'status' => 'success',

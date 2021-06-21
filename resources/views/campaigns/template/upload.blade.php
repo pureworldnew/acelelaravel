@@ -23,6 +23,8 @@
 				
                 <div class="mt-20">
                     <button class="btn btn-primary bg-grey-600 mr-5">{{ trans('messages.upload') }}</button>
+                    <input type="checkbox" name="local_host" value="Bike">
+                    <label for="local_host">Host images on our server</label><br>
                 </div>
 
             </form>

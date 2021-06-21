@@ -182,6 +182,7 @@
   'overview' => 'Overview',
   'actions' => 'Actions',
   'delete' => 'Delete',
+  'delete_all_subscribers' => 'Delete All Subscribers',
   'fields' => 'Fields',
   'fields_intro' => 'Here you can manage the fields available to your list\'s subscribers.',
   'default_value' => 'Default value',
@@ -239,6 +240,7 @@
   'delete_subscribers_confirm' => 'You\'re about to delete :number subscriber(s) from the list.',
   'delete_templates_confirm' => 'You\'re about to delete :number template(s).',
   'delete_segments_confirm' => 'You\'re about to delete :number segment(s) from the list.',
+  'delete_all_subscribers_confirm' => 'You\'re about to delete :number segment(s) from the list.',
   'delete_campaigns_confirm' => 'You\'re about to delete :number campaign(s).',
   'pause_campaigns_confirm' => 'You\'re about to pause :number campaign(s).',
   'restart_campaigns_confirm' => 'You\'re about to restart :number campaign(s).',
@@ -267,6 +269,7 @@
   'edit_segment' => 'Update segment',
   'all' => 'All',
   'any' => 'Any',
+  'condition_or' => 'Or',
   'how_subscribers_matching' => 'How to combine the conditions',
   'conditions' => 'Conditions',
   'equal' => 'equal',
@@ -2967,10 +2970,13 @@
   'automation.profile.tag_contact' => 'Tag contact',
   'automation.profile.tag_contact.intro' => 'Your are about to tag <span class="font-weight-semibold">:name</span>.
     Type your tags in the box below, press ENTER to confirm each',
+  'automation.profile.source_tag_contact.intro' => 'Your are about to source-tag <span class="font-weight-semibold">:name</span>.
+    Type your tags in the box below, press ENTER to confirm each',
   'automation.export_this_list' => 'Export this list',
   'automation.copy_to_new_list' => 'Copy to a new list',
   'automation.tag_those_contacts' => 'Tag those contacts',
   'automation.profile.tag_contacts' => 'Tag contacts',
+  'automation.profile.source_tag_contacts' => 'Source Tag contacts',
   'automation.profile.tag_contacts.intro' => 'Your are about to tag <span class="font-weight-semibold">:count</span> contacts
     Type your tags in the box below, press ENTER to confirm each',
   'automation.contacts.exported' => 'Contacts was successfully exported.',
@@ -3031,6 +3037,7 @@
     `<span class="font-weight-semibold">:list</span>` successfully',
   'automation.contacts.copying_to_new_list' => 'Copying contacts... Please wait.',
   'automation.contact.choose_tags' => 'Choose one or many tags',
+  'automation.contact.choose_source_tags' => 'Choose one or many Source tags',
   'automation.contacts.tagging_contacts' => 'Tagging contacts... Please wait.',
   'automation.contacts.tagged' => '<span class="font-weight-semibold">:count</span> contacts were tagged successfully',
   'automation.profile.action' => 'Action',
@@ -3040,6 +3047,7 @@
   'automation.contact.tagged' => ':contact\'s tags were updated',
   'automation.contact.tag.removed' => '<span class="font-weight-semibold">:tag</span> tag were removed',
   'automation.profile.click_to_add_tag' => 'Add tag',
+  'automation.profile.click_to_add_src_tag' => 'Add Source tag',
   'automation.trigger.tree.welcome-new-subscriber' => 'New contact subscribes to mail list',
   'automation.trigger.tree.say-happy-birthday' => 'Trigger on contacts\' date of birth',
   'automation.trigger.tree.say-goodbye-subscriber' => 'Contact unsubscribes from mail list',
@@ -3169,6 +3177,7 @@
   'automation.segment' => 'Segment',
   'automation.segment.all_list' => 'A whole list',
   'segment.tag' => 'Tag',
+  'segment.source_tag' => 'Source Tag',
   'segment.other_cond' => 'Other',
   'campaign.layout.selected' => 'The layout was successfully applied.',
   'campaign.template.builder.select.intro' => 'The campaign content was successfully updated.
@@ -4093,4 +4102,3 @@
   'payment.choose_new_payment_method_to_proceed' => 'Please choose a new payment method below to 
       proceed with the payment',
 ) ?>
-

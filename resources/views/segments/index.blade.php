@@ -61,6 +61,9 @@
 										<input name="search_keyword" class="form-control search" placeholder="{{ trans('messages.type_to_search') }}" />
 										<i class="icon-search4 keyword_search_button"></i>
 									</span>
+									<a delete-confirm="{{ trans('messages.delete_all_subscribers_confirm') }}" href="{{ action('SegmentController@delete_all_subscribers_list', $list->uid) }}" class="pl-4">
+										<i class="icon-trash"></i> {{ trans('messages.delete_all_subscribers') }}
+									</a>
 								</div>
 							@endif
 						</div>

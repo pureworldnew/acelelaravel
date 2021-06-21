@@ -33,7 +33,25 @@
 				</div>
 
 				<div class="upload_file before">
-					{!! trans('messages.max_file_upload', ['size' => \Acelle\Library\Tool::maxFileUploadInBytes()]) !!}
+					<div class="d-flex" style="justify-content: space-between;">
+						{!! trans('messages.max_file_upload', ['size' => \Acelle\Library\Tool::maxFileUploadInBytes()]) !!}
+						<div>
+							<a href="" class="btn-group profile-tag-contact text-right" role="group" aria-label="Basic example">
+								<button type="button" class="btn btn-light btn-tag d-flex align-items-center">
+									<i class="material-icons mr-2">add</i>
+									<span class="font-italic">{{ trans('messages.automation.profile.click_to_add_tag') }}<span>
+								</button>
+							</a>
+							<a href="" class="btn-group profile-tag-contact text-right" role="group" aria-label="Basic example">
+								<button type="button" class="btn btn-light btn-tag d-flex align-items-center">
+									<i class="material-icons mr-2">add</i>
+									<span class="font-italic">{{ trans('messages.automation.profile.click_to_add_src_tag') }}<span>
+								</button>
+							</a>
+						</div>
+
+					</div>
+
 
 					@include('helpers.form_control', ['required' => true, 'type' => 'file', 'label' => trans('messages.upload_file'), 'name' => 'file', 'value' => $list->name])
 
@@ -55,6 +73,8 @@
 
 					<div class="text-left">
 						<button class="btn bg-teal mr-10"><i class="icon-check"></i> {{ trans('messages.import') }}</button>
+						<input type="checkbox" name="local_host" value="Bike">
+						<label for="local_host">Delete all this emails from the list</label><br>
 					</div>
 					<br />
 				</div>

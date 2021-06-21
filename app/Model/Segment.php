@@ -139,6 +139,7 @@ class Segment extends Model
         return [
             ['text' => trans('messages.all'), 'value' => 'all'],
             ['text' => trans('messages.any'), 'value' => 'any'],
+            ['text' => trans('messages.condition_or'), 'value' => 'or'],
         ];
     }
 

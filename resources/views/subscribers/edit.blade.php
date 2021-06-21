@@ -25,18 +25,18 @@
                     <input type="hidden" name="_method" value="PATCH">
                     <input type="hidden" name="list_uid" value="{{ $list->uid }}" />
                     
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center pb-4">
                         <div>
                             {{-- @include('helpers._upload',['src' => (isSiteDemo() ? 'https://i.pravatar.cc/300' : action('SubscriberController@avatar',  $subscriber->uid)), 'dragId' => 'upload-avatar', 'preview' => 'image']) --}}
-                            
+
                             <div class="tags" style="clear:both">
                                 @if ($subscriber->getTags())
                                     @foreach ($subscriber->getTags() as $tag)
                                         <a href="{{ action('SubscriberController@removeTag', [
-                                            'list_uid' => $subscriber->mailList->uid,
-                                            'uid' => $subscriber->uid,
-                                            'tag' => $tag,
-                                        ]) }}" class="btn-group remove-contact-tag" role="group" aria-label="Basic example">
+                                        'list_uid' => $subscriber->mailList->uid,
+                                        'uid' => $subscriber->uid,
+                                        'tag' => $tag,
+                                    ]) }}" class="btn-group remove-contact-tag" role="group" aria-label="Basic example">
                                             <button type="button" class="btn btn-light btn-tag font-weight-semibold">{{ $tag }}</button>
                                             <button type="button" class="btn btn-light btn-tag font-weight-semibold ml-0">
                                                 <i class="lnr lnr-cross"></i>
@@ -55,18 +55,59 @@
                         </div>
                         <div class="ml-20">
                             <div class="dropdown">
-                            <button class="btn btn-default bg-grey dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                {{ trans('messages.subscribers.profile.action') }}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                                <li><a class="profile-remove-contact" href="#">{{ trans('messages.subscribers.profile.remove_subscriber') }}</a></li>
-                                <li><a class="profile-tag-contact" href="#">{{ trans('messages.subscribers.profile.manage_tags') }}</a></li>
-                            </ul>
+                                <button class="btn btn-default bg-grey dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    {{ trans('messages.subscribers.profile.action') }}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                                    <li><a class="profile-remove-contact" href="#">{{ trans('messages.subscribers.profile.remove_subscriber') }}</a></li>
+                                    <li><a class="profile-tag-contact" href="#">{{ trans('messages.subscribers.profile.manage_tags') }}</a></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    
+                    {{-- Source tag start --}}
+                    <div class="d-flex align-items-center">
+                        <div>
+                            {{-- @include('helpers._upload',['src' => (isSiteDemo() ? 'https://i.pravatar.cc/300' : action('SubscriberController@avatar',  $subscriber->uid)), 'dragId' => 'upload-avatar', 'preview' => 'image']) --}}
+
+                            <div class="tags" style="clear:both">
+                                @if ($subscriber->getSourceTags())
+                                    @foreach ($subscriber->getSourceTags() as $tag)
+                                        <a href="{{ action('SubscriberController@removeSourceTag', [
+                                        'list_uid' => $subscriber->mailList->uid,
+                                        'uid' => $subscriber->uid,
+                                        'tag' => $tag,
+                                    ]) }}" class="btn-group remove-contact-tag" role="group" aria-label="Basic example">
+                                            <button type="button" class="btn btn-light btn-tag font-weight-semibold">{{ $tag }}</button>
+                                            <button type="button" class="btn btn-light btn-tag font-weight-semibold ml-0">
+                                                <i class="lnr lnr-cross"></i>
+                                            </button>
+                                        </a>
+                                    @endforeach
+                                @else
+                                    <a href="" class="btn-group profile-source-tag-contact" role="group" aria-label="Basic example">
+                                        <button type="button" class="btn btn-light btn-tag d-flex align-items-center">
+                                            <i class="material-icons mr-2">add</i>
+                                            <span class="font-italic">{{ trans('messages.automation.profile.click_to_add_src_tag') }}<span>
+                                        </button>
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="ml-20">
+                            <div class="dropdown">
+                                <button class="btn btn-default bg-grey dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    {{ trans('messages.subscribers.profile.action') }}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                                    <li><a class="profile-source-tag-contact" href="#">{{ trans('messages.subscribers.profile.manage_tags') }}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Source tag end --}}
                     <h3 class="clear-both">{{trans("messages.basic_information")}}</h3>
                     @include("subscribers._form")
 
@@ -236,6 +277,20 @@
 
     <script>
         var tagContact = new Popup();
+
+        $('.profile-source-tag-contact').click(function(e) {
+            e.preventDefault();
+
+            var url = '{{ action('SubscriberController@updateSourceTags', [
+                'list_uid' => $subscriber->mailList->uid,
+                'uid' => $subscriber->uid,
+            ]) }}';
+
+            tagContact.load(url, function() {
+                console.log('Confirm action type popup loaded!');
+            });
+        });
+
         $('.profile-tag-contact').click(function(e) {
             e.preventDefault();
 

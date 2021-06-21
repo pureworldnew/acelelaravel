@@ -359,6 +359,36 @@ class SegmentController extends Controller
     }
 
     /**
+     * Remove the all subscribers in the segments of list
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function delete_all_subscribers_list(Request $request)
+    {
+        $items = \Acelle\Model\Segment::whereIn('uid', explode(',', $request->uids));
+
+        foreach ($items->get() as $item) {
+            // authorize
+            if (\Gate::denies('delete', $item)) {
+                return;
+            }
+        }
+
+        foreach ($items->get() as $item) {
+            $item->delete();
+
+            // Log
+            $item->log('deleted', $request->user()->customer);
+        }
+
+        // Redirect to my lists page
+        // Redirect to my lists page
+        echo trans('messages.segments.deleted');
+    }
+
+    /**
      * Get sample option line.
      *
      * @param int $id

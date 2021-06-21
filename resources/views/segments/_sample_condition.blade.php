@@ -12,6 +12,7 @@
 				</optgroup>
 				<optgroup label="{{ trans('messages.segment.other_cond') }}">
 					<option value="tag">{{ trans('messages.segment.tag') }}</option>
+					<option value="tag">{{ trans('messages.segment.source_tag') }}</option>
 				</optgroup>
 				<optgroup label="{{ trans('messages.segment.activities') }}">
 					<option value="last_open_email">{{ trans('messages.segment.last_open_email') }}</option>

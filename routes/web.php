@@ -277,6 +277,9 @@ Route::group(['middleware' => ['not_installed', 'auth', 'frontend', 'subscriptio
     Route::post('lists/{list_uid}/subscriber/{uid}/remove-tag', 'SubscriberController@removeTag');
     Route::match(['get', 'post'], 'lists/{list_uid}/subscriber/{uid}/update-tags', 'SubscriberController@updateTags');
 
+    Route::post('lists/{list_uid}/subscriber/{uid}/remove-source-tag', 'SubscriberController@removeSourceTag');
+    Route::match(['get', 'post'], 'lists/{list_uid}/subscriber/{uid}/update-source-tags', 'SubscriberController@updateSourceTags');
+
     Route::post('lists/{list_uid}/subscribers/resend/confirmation-email/{uids?}', 'SubscriberController@resendConfirmationEmail');
     Route::post('subscriber/{uid}/verification/start', 'SubscriberController@startVerification');
     Route::post('subscriber/{uid}/verification/reset', 'SubscriberController@resetVerification');
@@ -316,6 +319,7 @@ Route::group(['middleware' => ['not_installed', 'auth', 'frontend', 'subscriptio
     Route::get('lists/{list_uid}/segments/{uid}/edit', 'SegmentController@edit');
     Route::patch('lists/{list_uid}/segments/{uid}/update', 'SegmentController@update');
     Route::get('lists/{list_uid}/segments/delete', 'SegmentController@delete');
+    Route::get('lists/{list_uid}/segments/delete_all_subscribers_list', 'SegmentController@delete_all_subscribers_list');
     Route::post('lists/{list_uid}/segments/{uid}/export', 'SegmentController@export');
     Route::get('lists/{list_uid}/segments/{uid}/export', 'SegmentController@viewExport');
     Route::get('lists/{list_uid}/segments/{uid}/export/list', 'SegmentController@exportList');

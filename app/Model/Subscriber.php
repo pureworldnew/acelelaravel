@@ -989,6 +989,17 @@ class Subscriber extends Model
 
         return json_decode($this->tags, true);
     }
+    /**
+     * Get Source tags.
+     */
+    public function getSourceTags()
+    {
+        if (!$this->source_tag) {
+            return [];
+        }
+
+        return json_decode($this->source_tag, true);
+    }
 
     /**
      * Get tags.
@@ -997,6 +1008,19 @@ class Subscriber extends Model
     {
         $arr = [];
         foreach ($this->getTags() as $tag) {
+            $arr[] = ['text' => $tag, 'value' => $tag];
+        }
+
+        return $arr;
+    }
+
+    /**
+     * Get Source tags.
+     */
+    public function getSourceTagOptions()
+    {
+        $arr = [];
+        foreach ($this->getSourceTags() as $tag) {
             $arr[] = ['text' => $tag, 'value' => $tag];
         }
 
@@ -1040,6 +1064,29 @@ class Subscriber extends Model
     }
 
     /**
+     * Add source tags.
+     */
+    public function updateSourceTags($arr)
+    {
+        if (!$arr) {
+            $arr = [];
+        }
+
+        // remove trailing space
+        array_walk($arr, function (&$val) {
+            $val = trim($val);
+        });
+
+        // remove empty tag
+        $arr = array_filter($arr, function (&$val) {
+            return !empty($val);
+        });
+
+        $this->source_tag = json_encode($arr);
+        $this->save();
+    }
+
+    /**
      * Remove tag.
      */
     public function removeTag($tag)
@@ -1051,6 +1098,21 @@ class Subscriber extends Model
         }
 
         $this->tags = json_encode($tags);
+        $this->save();
+    }
+
+    /**
+     * Remove source tag.
+     */
+    public function removeSourceTag($tag)
+    {
+        $tags = $this->getSourceTags();
+
+        if (($key = array_search($tag, $tags)) !== false) {
+            unset($tags[$key]);
+        }
+
+        $this->source_tag = json_encode($tags);
         $this->save();
     }
 
