@@ -197,6 +197,19 @@ class Segment extends Model
      *
      * @return options
      */
+    public static function sourceTagOperators()
+    {
+        return [
+            ['text' => trans('messages.src_contains'), 'value' => 'source_tag_contains'],
+            ['text' => trans('messages.src_not_contains'), 'value' => 'source_tag_not_contains'],
+        ];
+    }
+
+    /**
+     * Get verification operators.
+     *
+     * @return options
+     */
     public static function openMailOperators()
     {
         return [
@@ -327,6 +340,14 @@ class Segment extends Model
                     case 'tag_not_contains':
                         // add condition
                         $conditions[] = '('.\DB::getTablePrefix().'subscribers.tags NOT LIKE '.db_quote('%"'.$keyword.'"%').')';
+                        break;
+                    case 'source_tag_contains':
+                        // add condition
+                        $conditions[] = '('.\DB::getTablePrefix().'subscribers.source_tag LIKE '.db_quote('%"'.$keyword.'"%').')';
+                        break;
+                    case 'source_tag_not_contains':
+                        // add condition
+                        $conditions[] = '('.\DB::getTablePrefix().'subscribers.source_tag NOT LIKE '.db_quote('%"'.$keyword.'"%').')';
                         break;
                     case 'last_open_email_less_than_days':
                         // IMPORTANT: NO LEFT JOIN HERE

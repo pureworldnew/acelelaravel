@@ -276,6 +276,8 @@
   'not_equal' => 'not equal',
   'contains' => 'contains',
   'not_contains' => 'not contains',
+  'src_contains' => 'source tag contains',
+  'src_not_contains' => 'source tag not contains',
   'starts' => 'starts with',
   'ends' => 'ends with',
   'greater' => 'greater than',

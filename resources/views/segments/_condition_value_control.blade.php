@@ -1,4 +1,24 @@
-@if (strpos($operator, 'tag') !== false)
+@if (strpos($operator, 'source_tag') !== false)
+    <div class="row">
+        <div class="col-md-6 operator-col">
+            @include('helpers.form_control', [
+                'type' => 'select',
+                'name' => 'conditions['.$index.'][operator]',
+                'label' => '',
+                'value' => (isset($operator) ? $operator : ''),
+                'options' => Acelle\Model\Segment::sourceTagOperators()
+            ])
+        </div>
+        <div class="col-md-6 value-col">
+            @include('helpers.form_control', [
+                'type' => 'text',
+                'name' => 'conditions['.$index.'][value]',
+                'label' => '',
+                'value' => (isset($value) ? $value : '')
+            ])
+        </div>
+    </div>
+@elseif (strpos($operator, 'tag') !== false)
     <div class="row">
         <div class="col-md-6 operator-col">
             @include('helpers.form_control', [
